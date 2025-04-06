@@ -9,6 +9,7 @@ const Home = () => {
    return (
       <div>
          <Navbar></Navbar>
+         <h1>hello for branch testing</h1>
          <div className="my-24">
             <h1 className="text-center font-bold text-5xl mb-4">
                Upload your document to start studying
