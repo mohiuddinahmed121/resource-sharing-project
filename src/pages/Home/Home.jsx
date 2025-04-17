@@ -2,7 +2,7 @@ import Navbar from "../Navbar/Navbar";
 import { FaFileAlt } from "react-icons/fa";
 import img1 from "../../asserts/pexels-minan1398-694740.jpg";
 import Footer from "../Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Uploader from "../Uploader/Uploader";
 
 const Home = () => {
@@ -70,7 +70,10 @@ const Home = () => {
             </p>
             <div>
                <div className="grid md:grid-cols-3 gap-4 mb-8">
-                  <div className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4">
+                  <NavLink
+                     to={`/uniprofile`}
+                     className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4"
+                  >
                      <h3 className="font-semibold text-2xl">University of Asia Pacific</h3>
                      <div className="flex gap-4">
                         <p>
@@ -80,7 +83,7 @@ const Home = () => {
                            <span>8k</span> Questions
                         </p>
                      </div>
-                  </div>
+                  </NavLink>
                   <div className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4">
                      <h3 className="font-semibold text-2xl">Independent University,Bangladesh</h3>
                      <div className="flex gap-4">

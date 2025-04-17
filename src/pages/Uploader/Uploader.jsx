@@ -28,14 +28,25 @@ const Uploader = () => {
                   />
                   <p>Please make a selection.</p>
                </div>
-               <div className="my-3">
-                  <p>Course</p>
-                  <input
-                     className="border-2 rounded-lg w-[700px] h-[45px]"
-                     type="text"
-                     name=""
-                     id=""
-                  />
+               <div className="flex gap-6 my-3">
+                  <div>
+                     <p>Course</p>
+                     <input
+                        className="border-2 rounded-lg w-[545px] h-[45px]"
+                        type="text"
+                        name=""
+                        id=""
+                     />
+                  </div>
+                  <div>
+                     <p>Department</p>
+                     <input
+                        className="border-2 rounded-lg w-[135px]  h-[45px]"
+                        type="text"
+                        name=""
+                        id=""
+                     />
+                  </div>
                </div>
                <div className="flex gap-6 my-3">
                   <div>
