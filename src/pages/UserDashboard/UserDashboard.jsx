@@ -10,7 +10,7 @@ const UserDashboard = () => {
    return (
       <div>
          <Navbar></Navbar>
-         <div className="py-10 bg-gray-200">
+         <div className="py-10">
             <div className="bg-sky-200 shadow-lg w-[1100px] h-[200px] rounded-lg mx-auto py-10 pl-6">
                <h1 className="text-7xl font-semibold">Hello there</h1>
             </div>
