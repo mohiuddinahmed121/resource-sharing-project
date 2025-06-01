@@ -60,15 +60,15 @@ const UserDashboard = () => {
             </div>
             {/* ---------------------------------------------------- */}
             <div className="my-14 ml-24">
-               <h1 className="text-2xl font-bold mb-5">Your uploads</h1>
-               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+               <h1 className="text-2xl font-bold mb-5">My uploads</h1>
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {uploads.length === 0 ? (
                      <p>No uploads found.</p>
                   ) : (
                      uploads.map((upload) => (
                         <div
                            key={upload._id}
-                           className="card bg-base-100 w-80 h-[400px] my-8 shadow-sm border-2"
+                           className="card bg-base-100 w-[270px] h-[400px]  shadow-sm border-2"
                         >
                            <figure>
                               <img
