@@ -2,10 +2,29 @@ import Navbar from "../Navbar/Navbar";
 import { FaFileAlt } from "react-icons/fa";
 import img1 from "../../asserts/pexels-minan1398-694740.jpg";
 import Footer from "../Footer/Footer";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLoaderData } from "react-router-dom";
 import Uploader from "../Uploader/Uploader";
+import { useState } from "react";
 
 const Home = () => {
+   const loadedResource = useLoaderData();
+   const [Resource, setResource] = useState(loadedResource);
+   const [showAll, setShowAll] = useState(false);
+
+   const uniqueSchools = Resource.reduce((acc, curr) => {
+      if (!acc[curr.school]) {
+         acc[curr.school] = {
+            school: curr.school,
+            documentsCount: 1,
+         };
+      } else {
+         acc[curr.school].documentsCount += 1;
+      }
+      return acc;
+   }, {});
+
+   const uniqueResourceArray = Object.values(uniqueSchools);
+
    return (
       <div>
          <Navbar></Navbar>
@@ -70,77 +89,28 @@ const Home = () => {
             </p>
             <div>
                <div className="grid md:grid-cols-3 gap-4 mb-8">
-                  <NavLink
-                     to={`/uniprofile`}
-                     className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4"
-                  >
-                     <h3 className="font-semibold text-2xl">University of Asia Pacific</h3>
-                     <div className="flex gap-4">
-                        <p>
-                           <span>188k</span> Documents
-                        </p>
-                        <p>
-                           <span>8k</span> Questions
-                        </p>
-                     </div>
-                  </NavLink>
-                  <div className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4">
-                     <h3 className="font-semibold text-2xl">Independent University,Bangladesh</h3>
-                     <div className="flex gap-4">
-                        <p>
-                           <span>188k</span> Documents
-                        </p>
-                        <p>
-                           <span>8k</span> Questions
-                        </p>
-                     </div>
-                  </div>
-                  <div className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4">
-                     <h3 className="font-semibold text-2xl">North South University</h3>
-                     <div className="flex gap-4">
-                        <p>
-                           <span>188k</span> Documents
-                        </p>
-                        <p>
-                           <span>8k</span> Questions
-                        </p>
-                     </div>
-                  </div>
-                  <div className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4">
-                     <h3 className="font-semibold text-2xl">BRAC University</h3>
-                     <div className="flex gap-4">
-                        <p>
-                           <span>188k</span> Documents
-                        </p>
-                        <p>
-                           <span>8k</span> Questions
-                        </p>
-                     </div>
-                  </div>
-                  <div className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4">
-                     <h3 className="font-semibold text-2xl">East West University,Dhaka</h3>
-                     <div className="flex gap-4">
-                        <p>
-                           <span>188k</span> Documents
-                        </p>
-                        <p>
-                           <span>8k</span> Questions
-                        </p>
-                     </div>
-                  </div>
-                  <div className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4">
-                     <h3 className="font-semibold text-2xl">Dhaka University</h3>
-                     <div className="flex gap-4">
-                        <p>
-                           <span>188k</span> Documents
-                        </p>
-                        <p>
-                           <span>8k</span> Questions
-                        </p>
-                     </div>
-                  </div>
+                  {(showAll ? uniqueResourceArray : uniqueResourceArray.slice(0, 3)).map(
+                     (resource) => (
+                        <NavLink
+                           key={resource.school}
+                           to={`/uniprofile/${encodeURIComponent(resource.school)}`}
+                           className="shadow-xl w-[450px] h-24 rounded-lg bg-white py-4 pl-4"
+                        >
+                           <h3 className="font-semibold text-2xl">{resource.school}</h3>
+                           <div className="flex gap-4">
+                              <p>
+                                 <span>{resource.documentsCount}</span> Documents
+                              </p>
+                           </div>
+                        </NavLink>
+                     )
+                  )}
                </div>
-               <button className="btn text-blue-600 ml-[650px]">View more</button>
+               {!showAll && (
+                  <button className="btn text-blue-600 ml-[650px]" onClick={() => setShowAll(true)}>
+                     View more
+                  </button>
+               )}
             </div>
          </div>
          <Footer></Footer>

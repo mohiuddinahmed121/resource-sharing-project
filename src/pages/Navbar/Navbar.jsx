@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
    const { user, logOut } = useContext(AuthContext);
@@ -23,6 +24,16 @@ const Navbar = () => {
       return () => checkbox?.removeEventListener("change", toggleTheme);
    }, []);
 
+   const [search, setSearch] = useState("");
+   const navigate = useNavigate();
+
+   const handleSearch = (e) => {
+      e.preventDefault();
+      if (search.trim()) {
+         navigate(`/searchResult?q=${encodeURIComponent(search)}`);
+      }
+   };
+
    const navLinks = (
       <>
          <li>
@@ -35,7 +46,7 @@ const Navbar = () => {
             <NavLink to="/career">Career</NavLink>
          </li>
          <li>
-            <NavLink to="/News">Study Resources</NavLink>
+            <NavLink to="/allResource">Study Resources</NavLink>
          </li>
          <li>
             <NavLink to="/dashboard">Profile</NavLink>
@@ -71,15 +82,24 @@ const Navbar = () => {
                   </ul>
                </div>
                <a className="btn btn-ghost text-xl">UniVault</a>
-               <div className="join border-2">
+               {/* search bar------------------------------------------------ */}
+               <form onSubmit={handleSearch} className="join border-2">
                   <div className="">
                      <label className="input border-2 validator join-item flex items-center justify-center">
-                        <input type="text" placeholder="search content" required />
+                        <input
+                           type="text"
+                           placeholder="search content"
+                           required
+                           value={search}
+                           onChange={(e) => setSearch(e.target.value)}
+                        />
                      </label>
                      <div className="validator-hint hidden">Enter valid address</div>
                   </div>
-                  <button className="btn btn-neutral join-item">Search</button>
-               </div>
+                  <button type="submit" className="btn btn-neutral join-item">
+                     Search
+                  </button>
+               </form>
             </div>
             <div className="navbar-center hidden lg:flex">
                <ul className="menu menu-horizontal px-1">{navLinks}</ul>

@@ -8,15 +8,24 @@ import PrivateRoute from "./PrivateRoute";
 import UniProfile from "../pages/UniProfile/UniProfile";
 import ResourVault from "../pages/ResourVault/ResourVault";
 import ResourceUploader from "../pages/ResourceUploader/ResourceUploader";
+import AllResource from "../pages/AllResource/AllResource";
+import SearchResult from "../pages/searchResult/searchResult";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const routes = createBrowserRouter([
    {
       path: "/",
       element: <Home></Home>,
+      loader: () => fetch(`${API_URL}/uploadedPdfs`),
    },
    {
       path: "/uploader",
-      element: <Uploader></Uploader>,
+      element: (
+         <PrivateRoute>
+            <Uploader></Uploader>
+         </PrivateRoute>
+      ),
    },
    {
       path: "/login",
@@ -35,8 +44,8 @@ const routes = createBrowserRouter([
       element: <Register></Register>,
    },
    {
-      path: "/uniprofile",
-      element: <UniProfile></UniProfile>,
+      path: "/uniprofile/:school", // add the :school param
+      element: <UniProfile />,
    },
    {
       path: "/resourVault",
@@ -45,6 +54,26 @@ const routes = createBrowserRouter([
    {
       path: "/resourceUploader",
       element: <ResourceUploader></ResourceUploader>,
+   },
+   {
+      path: "/allResource",
+      element: <AllResource></AllResource>,
+      loader: () => fetch(`${API_URL}/uploadedPdfs`),
+   },
+   {
+      path: "/searchResult",
+      element: <SearchResult />,
+      loader: async ({ request }) => {
+         const url = new URL(request.url);
+         const searchTerm = url.searchParams.get("q");
+
+         const response = await fetch(`${API_URL}/search?q=${searchTerm}`);
+         if (!response.ok) {
+            throw new Error("Failed to load search results");
+         }
+
+         return response.json();
+      },
    },
 ]);
 
