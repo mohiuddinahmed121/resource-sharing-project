@@ -37,12 +37,9 @@ const searchResult = () => {
                   <div key={resource._id} className="card card-side bg-base-200 shadow-sm">
                      <figure>
                         <img
-                           src={
-                              resource.pdfUrl
-                                 ? resource.pdfUrl.replace("/raw/upload/", "/upload/pg_1/")
-                                 : "https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                           }
-                           alt="PDF First Page Preview"
+                           src="https://cdn-icons-png.flaticon.com/512/337/337946.png"
+                           alt="Document Icon"
+                           className="h-44 w-full object-cover"
                         />
                      </figure>
 
